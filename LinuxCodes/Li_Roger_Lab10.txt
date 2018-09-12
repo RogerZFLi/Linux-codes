@@ -1,0 +1,76 @@
+#!/bin/bash
+#
+#Course Section: CST8102_320
+#Assignment Number: Lab9
+
+#Student Name: Roger Li
+#Student Number: 040896855
+#
+#File Name: mycalc
+#Date: 2018-04-10
+#
+#This script is simulate a calculator.
+#
+#######################################################################
+
+menu1="
+\n
+C) Calculation \n
+X) Exit \n
+\n"
+menu2="
+\n
+Please enter a integer or X to exit. \n
+\n"
+menu3="
+\n
++) Add \n
+-) Subtract \n
+X) Exit \n
+\n"
+
+
+function adding()
+{
+
+        echo "The sum of $1 plus $3 equals $(($1$2$3))"
+}
+
+function subtract()
+{
+        echo "The difference of $1 minus $3 equals $(($1$2$3))"
+}
+
+
+case $2 in
+        "+") adding $1 $2 $3
+             exit;;
+        "-") subtract $1 $2 $3
+             exit;;
+esac
+
+echo -e $menu1
+read option
+case $option in
+        "C"|"c") echo -e $menu2
+                 read num1
+                 case $num1 in
+                        "X"|"x") exit;;
+                        *) echo -e $menu3
+                           read op
+                           case $op in
+                                "X"|"x") exit;;
+                                *) echo -e $menu2
+                                   read num2
+                                   case $num2 in
+                                        "X"|"x") exit;;
+                                        *) if [ $op = "+" ]
+                                           then
+                                                adding $num1 $op $num2
+                                           else
+                                                subtract $num1 $op $num2
+                                           fi;;
+                                   esac;;
+                            esac;;
+                  esac;;
+esac

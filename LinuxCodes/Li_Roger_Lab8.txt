@@ -1,0 +1,25 @@
+read -p "Enter assignment mark (0 to 40): " assignment
+read -p "Enter Test1 mark (0 to 15): " test1
+read -p "Enter Test2 mark (0 to 15): " test2
+read -p "Enter Final Exam mark (0 to 30): " final
+
+((grade=$assignment+$test1+$test2+final))
+echo ""
+echo ""
+case $grade in
+        9[0-9]|100) lettergrade="A+";;
+        8[5-9]) lettergrade="A";;
+        8[0-4]) lettergrade="A-";;
+        7[7-9]) lettergrade="B+";;
+        7[3-6]) lettergrade="B";;
+        7[0-2]) lettergrade="B-";;
+        6[7-9]) lettergrade="C+";;
+        6[3-6]) lettergrade="C";;
+        6[0-2]) lettergrade="C-";;
+        5[7-9]) lettergrade="D+";;
+        5[3-6]) lettergrade="D";;
+        5[0-2]) lettergrade="D-";;
+        *) lettergrade="F";;
+esac
+echo "Your Final Grade is: " $lettergrade
+echo ""

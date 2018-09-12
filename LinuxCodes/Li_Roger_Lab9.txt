@@ -1,0 +1,106 @@
+#!/bin/bash
+# 
+#Course Section: CST8102_320
+#Assignment Number: Lab9
+
+#Student Name: Roger Li
+#Student Number: 040896855
+#
+#File Name: myscript
+#Date: 2018-04-03
+#
+#This script is to manage user and group of Linux.
+#
+#######################################################################
+menu=" 
+\n
+A) Create a user account \n
+B) Delete a user account \n
+C) Change supplementary group for a user account \n
+D) Change initial group for a user account \n
+E) Change default login shell for a user account \n
+F) Change account expiration date for a user account \n
+Q) Quit \n
+
+"
+echo -e $menu
+choise=n
+read -p "Choose a option(A to F and Q to quit): " choise
+while [ $choise != "Q" ] && [ $choise != "q" ]
+do
+        sleep 1
+        case $choise in
+                "A"|"a") read -p "Please enter user name to be added: " username
+                         read -p "Please enter user's home directory: " usrhmd
+                         read -p "Please enter default login shell: " defshell
+                         sudo useradd -d $usrhmd -s $defshell $username
+                        if [ $? == 0 ]
+                        then
+                         echo "The user $username has been created successfully!"
+                        choise=n
+                        else
+                                read -p "Please choose a option." choise
+                        fi;;
+
+
+                "B"|"b") read -p "Please enter the user name to be deleted: " username
+                         sudo userdel -r $username
+                         if [ $? == 0 ]
+                         then
+                         echo "The user $username has been deleted successfully!"
+                         choise=n
+                         else
+                                read -p "Please choose a option." choise
+                         fi;;
+
+
+                "C"|"c") read -p "Please enter the user name: " username
+                         read -p "Please enter supplementary group name: " grpname
+                        sudo usermod -G $grpname $username
+                        if [ $? == 0 ]
+                        then
+                        echo "The user $username has been modified successfully!"
+                        choise=n
+                        else
+                                read -p "Please choose a option." choise
+                        fi;;
+
+                "D"|"d") read -p "Please enter the user name: " username
+                         read -p "Please enter initial group name: " grpname
+                        sudo usermod -g $grpname $username
+                        if [ $? == 0 ]
+                        then
+                        echo "The user $username has been modified successfully!"
+                        choise=n
+                        else
+                                read -p "Please choose a option." choise
+                        fi;;
+
+                "E"|"e") read -p "Please enter the user name: " username
+                         read -p "Please enter the new login shell name: " newshell
+                        sudo usermod -s $newshell $username
+                        if [ $? == 0 ]
+                        then
+                        echo "The user $username has been modified successfully!"
+                        choise=n
+                        else
+                                read -p "Please choose a option." choise
+                        fi;;
+
+                "F"|"f") read -p "Please enter the user name: " username
+                         read -p "Please enter expire date (YYYY-MM-DD): " expdate
+                        sudo usermod -e $expdate $username
+                        if [ $? == 0 ]
+                        then
+                        echo "The user $username has been modified successfully!"
+                        choise=n
+                        else
+                                read -p "Please choose a option." choise
+                        fi;;
+                *)
+                        echo -e $menu
+
+                        read -p "Please enter your option (A-F and Q to quit): " choise;;
+esac
+done
+exit
